@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import landingImage from '/src/assets/images/landing.jpg';
+import { CircleArrowDown } from '@lucide/astro';
+---
+
+<div class='image-container'>
+    <Image
+        src={landingImage}
+        alt='une voiture devant un garage'
+        class='bg-image'
+        loading='eager'
+    />
+    <div class='overlay'>
+        <h1 id='title'>Bienvenue au Garage Vincent Parrot</h1>
+        <a href='/#about' class='scroll-button'>
+            <CircleArrowDown
+                class='w-10 h-10 text-white text-center animate-bounce'
+                aria-label='Scroll down'
+            />
+        </a>
+    </div>
+</div>
+
+<style>
+    .image-container {
+        position: relative;
+        width: 100%;
+        height: calc(100vh - var(--header-height));
+        overflow: hidden;
+        /* margin: 0 auto; */
+    }
+
+    .bg-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(50px);
+        will-change: filter;
+    }
+
+    .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: end;
+        justify-content: center;
+    }
+
+    #title {
+        font-size: clamp(1rem, 5vw, 1.5rem);
+        font-weight: 700;
+        width: 100%;
+        opacity: 0;
+        font-family: 'Montserrat', sans-serif;
+        color: white;
+        text-align: center;
+        padding: 0 1rem;
+        margin-bottom: 128px;
+    }
+
+    .scroll-button {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        opacity: 0;
+        transform: translateX(-50%);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    import { animate } from 'motion';
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const imgEl = document.querySelector<HTMLImageElement>('.bg-image');
+        const overlayEl = document.querySelector<HTMLDivElement>('.overlay');
+        const titleEl = document.querySelector<HTMLHeadingElement>('#title');
+        const scrollButton =
+            document.querySelector<HTMLButtonElement>('.scroll-button');
+
+        if (!imgEl || !overlayEl || !titleEl || !scrollButton) return;
+
+        //Animation
+        animate(0, 100, {
+            duration: 2.5,
+            ease: 'easeInOut',
+            onUpdate: (latest) => {
+                //Blur update
+                const blurValue = Math.max(20 - latest / 5, 0);
+                imgEl.style.filter = `blur(${blurValue}px)`;
+
+                //Overlay update
+                const overlayOpacity = Math.max(0.6 - latest / 200, 0);
+                overlayEl.style.background = `rgba(255, 255, 255, ${overlayOpacity})`;
+            },
+            onComplete: () => {
+                titleEl.style.fontSize = 'clamp(2rem, 5vw, 4rem)';
+                titleEl.style.opacity = '1';
+                scrollButton.style.opacity = '1';
+            },
+        });
+    });
+</script>
