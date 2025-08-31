@@ -6,12 +6,15 @@ import sanity from '@sanity/astro';
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()]
-  },
-  integrations: [react(), sanity({
-    projectId: 'yourProjectId',
-    dataset: 'production',
-    useCdn: false
-  })]
+    vite: {
+        plugins: [tailwindcss()],
+    },
+    integrations: [
+        react(),
+        sanity({
+            projectId: '32x25xff',
+            dataset: 'production',
+            useCdn: false,
+        }),
+    ],
 });
