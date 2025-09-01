@@ -1,0 +1,60 @@
+import { useState } from 'react';
+import type { Car } from '../../lib/types';
+
+export default function CarCard({ car }: { car: Car }) {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const toggleModal = () => {
+        setIsOpen(!isOpen);
+    };
+
+    return (
+        <div className='overflow-hidden rounded-lg bg-slate-50 w-80 text-slate-950 mt-5 h-fit md:mt-0 shadow-md'>
+            <figure>
+                <img
+                    src={`${car.images}`}
+                    alt=''
+                    className='aspect-video w-full'
+                />
+            </figure>
+            <div className='p-6'>
+                <header className='mb-4'>
+                    <h3 className='text-xl font-medium text-slate-950'>
+                        {car.marque} {car.model}
+                    </h3>
+                    <p className='text-slate-400'>{car.prix} €</p>
+                </header>
+                <div>
+                    <ul>
+                        <li className='mb-2 flex w-3/4 justify-between'>
+                            <p className='font-bold'>Année: </p>
+                            <p>{car.annee}</p>
+                        </li>
+                        <li className='mb-2 flex w-3/4 justify-between'>
+                            <p className='font-bold'>Kilométrage: </p>
+                            <p>{car.kilometrage} km</p>
+                        </li>
+                        <li className='mb-2 flex w-3/4 justify-between'>
+                            <p className='font-bold'>Couleur: </p>
+                            <p>{car.couleur}</p>
+                        </li>
+                        <li className='mb-2 flex w-3/4 justify-between'>
+                            <p className='font-bold'>Carburant: </p>
+                            <p>{car.carburant}</p>
+                        </li>
+                        <li className='mb-2 flex w-3/4 justify-between'>
+                            <p className='font-bold'>Transmission: </p>
+                            <p>{car.transmission}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div className='flex justify-end p-6 pt-0'>
+                <button className='bg-slate-950 text-slate-50 hover:bg-slate-800 cursor-pointer active:scale-[0.99] font-semibold py-2 px-4 w-full rounded-md' onClick={toggleModal}>
+                    En savoir plus
+                </button>
+            </div>
+            {isOpen && (<div>Modal Content</div>)}
+        </div>
+    );
+}

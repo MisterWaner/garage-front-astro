@@ -9,3 +9,17 @@ export type Review = {
     rating: number;
     comment: string;
 };
+
+export type Car = {
+    immatriculation: string;
+    marque: string;
+    model: string;
+    annee: number;
+    kilometrage: number;
+    couleur: string;
+    carburant: string;
+    prix: number;
+    transmission: string;
+    images: string[]
+    status: string;
+};

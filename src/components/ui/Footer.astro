@@ -1,6 +1,6 @@
 ---
 import type { SanityDocument } from '@sanity/client';
-import sanityClient from '../../../sanityConfig';
+import {sanityClient} from '../../../sanityConfig';
 
 const PLANNINGS_QUERY = `*[_type == "planning"]|order(dayInTheWeek asc)[]{
     _id,
