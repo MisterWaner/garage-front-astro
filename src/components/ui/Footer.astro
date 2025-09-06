@@ -7,8 +7,8 @@ const PLANNINGS_QUERY = `*[_type == "planning"]|order(dayInTheWeek asc)[]{
     day,
     dayIntheWeek,
     status,
-    ouverture,
-    fermeture
+    openingHours,
+    closingHours
 }`;
 
 const plannings = await sanityClient.fetch<SanityDocument[]>(PLANNINGS_QUERY);
@@ -57,13 +57,15 @@ const handlePhoneNumber = () => {
                             <tr>
                                 <td class='text-center'>{planning.day}</td>{' '}
                                 <td class='text-center'>
-                                    {planning.ouverture} à {planning.fermeture}
+                                    {planning.openingHours} à {planning.closingHours}
                                 </td>
                             </tr>
                         ) : (
                             <tr>
                                 <td class='text-center'>{planning.day}</td>{' '}
-                                <td class='text-center'>Fermé</td>
+                                <td class='text-center'>
+                                    Fermé
+                                </td>
                             </tr>
                         )
                     )

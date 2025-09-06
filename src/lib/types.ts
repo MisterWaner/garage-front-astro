@@ -12,13 +12,15 @@ export type Review = {
 
 export type Car = {
     immatriculation: string;
-    marque: string;
+    brand: string;
     model: string;
-    annee: number;
-    kilometrage: number;
-    couleur: string;
-    carburant: string;
-    prix: number;
+    year: number;
+    mileage: number;
+    color: string;
+    fuel: string;
+    price: number;
+    power: number;
+    description: string;
     transmission: string;
     images: string[]
     status: string;

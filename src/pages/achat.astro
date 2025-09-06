@@ -11,16 +11,16 @@ import '../styles/global.css';
 const CARS_QUERY = `*[_type == "car"]
 {
     _id,
-    marque,
+    brand,
     model,
     immatriculation,
     status,
-    annee,
-    couleur,
-    kilometrage,
-    prix,
+    year,
+    color,
+    mileage,
+    price,
     description,
-    carburant,
+    fuel,
     transmission,
     images
 }
@@ -30,18 +30,19 @@ const urlFor = (source: SanityImageSource) => imageUrlBuilder(sanityClient).imag
 
 const rawCars = await sanityClient.fetch<SanityDocument[]>(CARS_QUERY);
 
-const cars: Car[] = rawCars.map(doc => ({
-    marque: doc.marque,
+const cars: Car[] = rawCars.map((doc) => ({
+    brand: doc.brand,
     model: doc.model,
     immatriculation: doc.immatriculation,
     status: doc.status,
-    annee: doc.annee,
-    couleur: doc.couleur,
-    kilometrage: doc.kilometrage,
-    prix: doc.prix,
+    year: doc.year,
+    color: doc.color,
+    mileage: doc.mileage,
+    price: doc.price,
     description: doc.description,
-    carburant: doc.carburant,
+    fuel: doc.fuel,
     transmission: doc.transmission,
+    power: doc.power,
     images: urlFor(doc.images[0]),
 }));
 ---
@@ -53,10 +54,10 @@ const cars: Car[] = rawCars.map(doc => ({
         Nos Occasions
     </h1>
     <section class="flex flex-col gap-4 md:flex-row items-center md:items-stretch font-roboto">
-        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full px-4">
+        <ul class="flex flex-wrap justify-center gap-6 w-full px-4">
             {cars.map(car => (
                 <li>
-                    <CarCard car={car} />
+                    <CarCard client:load car={car} />
                 </li>
             ))}
         </ul>
